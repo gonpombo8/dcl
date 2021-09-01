@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "cee8198d-bdb4-4876-8a7a-c491a1b31766",
+		"name": "Users Tracker API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send Users Updates",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"new\": [\r\n    ],\r\n    \"moved\": [\r\n        {\r\n            \"id\": \"addr1\",\r\n            \"position\": {\r\n                \"x\": 2,\r\n                \"y\": -139\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"addr2\",\r\n            \"position\": {\r\n                \"x\": 2,\r\n                \"y\": -139\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"0x47101e2acefa2563f26863d925d0908c46cee350\",\r\n            \"position\": {\r\n                \"x\": 2,\r\n                \"y\": -139\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"0xa2dcaa21bf8badcb16258c78908207bc9f95906e\",\r\n            \"position\": {\r\n                \"x\": 2,\r\n                \"y\": -139\r\n            }\r\n        },\r\n        {\r\n            \"id\": \"addr3\",\r\n            \"position\": {\r\n                \"x\": 2,\r\n                \"y\": -139\r\n            }\r\n        }\r\n    ],\r\n    \"disconnected\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users-update",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users-update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Friendship",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/friendships/{{address1}}/{{address2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"friendships",
+						"{{address1}}",
+						"{{address2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all frienships",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/friendships",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"friendships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get system status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should suggest friendship",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/suggest-friendship/{{address1}}/{{address2}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"suggest-friendship",
+						"{{address1}}",
+						"{{address2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "address1",
+			"value": "0xb9117Fc3aFAd6de56fAd07B46FA3f286DFb5B3Dc"
+		},
+		{
+			"key": "address2",
+			"value": "0x475dA19547e2E436b16857FBCD4Ee87011Af7aFC"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8081"
+		},
+		{
+			"key": "address3",
+			"value": "0x887Cf52576450F51c44f17a274Bfd37e7d353f9c"
+		}
+	]
+}
