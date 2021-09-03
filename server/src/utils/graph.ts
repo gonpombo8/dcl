@@ -24,15 +24,16 @@ export function findPath(edges: Edge[], from: string, to: string) {
 
   while (!!queue.length) {
     const vertex = queue.shift();
+
     if (!vertex) {
       return false;
     }
-    const neighbors = neighborsHash[vertex] || new Set();
 
     if (vertex === to) {
       return true;
     }
 
+    const neighbors = neighborsHash[vertex] || new Set();
     for (let neighbor of neighbors) {
       if (neighbor === to) {
         return true;

@@ -1,4 +1,4 @@
-import { Friendship, FriendshipsRepository } from "../src/entities/types";
+import { Friendship, FriendshipsRepository, Position, User, UsersRepository } from "../src/entities/types";
 
 export function createFriendshipsRepoMock(): FriendshipsRepository {
   const friendships = new Map<string, Friendship>();
@@ -18,5 +18,26 @@ export function createFriendshipsRepoMock(): FriendshipsRepository {
     async getAll(): Promise<Friendship[]> {
       return [...friendships.values()];
     },
+    async getByAddress(addresses: string[]): Promise<Friendship[]> {
+      return [...friendships.values()].filter(
+        f => addresses.includes(f.userAddress1) || addresses.includes(f.userAddress2)
+      );
+    }
   };
+}
+
+export function createUsersRepo(): UsersRepository {
+  return {
+    async getByAddress(address: User['address'][]): Promise<User[]> {
+      return [];
+    },
+    async getByPosition(position: Position): Promise<User[]> {
+      return [];
+    },
+    async upsertMulti(users: User[]): Promise<User[]> {
+      return [];
+    },
+    async updateDisconnected(addresses: User['address'][]): Promise<void> {
+    }
+  }
 }

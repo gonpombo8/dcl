@@ -1,10 +1,11 @@
-import { createFriendshipsRepoMock } from "./mocks";
+import { createFriendshipsRepoMock, createUsersRepo } from "./mocks";
 import { friendshipsLogic } from "../src/logic/friendships";
 
 describe("Friendship", () => {
   it("should allow to create a friendship when it doesn't exists", async () => {
     const friendships = friendshipsLogic({
       friendshipsRepo: createFriendshipsRepoMock(),
+      usersRepo: createUsersRepo(),
     });
     const friendship = { userAddress1: "foo", userAddress2: "bar" };
 
@@ -19,6 +20,7 @@ describe("Friendship", () => {
   it("should not allow to create a friendship when it exists, independently of the order", async () => {
     const friendships = friendshipsLogic({
       friendshipsRepo: createFriendshipsRepoMock(),
+      usersRepo: createUsersRepo(),
     });
     const friendship = { userAddress1: "foo", userAddress2: "bar" };
 
