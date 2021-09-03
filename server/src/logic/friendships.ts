@@ -1,5 +1,4 @@
 import { AppComponents } from "../app/interfaces";
-import { createFriendshipsRepo } from "../db/DbFriendshipsRepo";
 import { Friendship } from "../entities/types";
 import { ServiceError } from "../utils/express-utils";
 import { Edge, findPath as shouldSuggestFriendship } from "../utils/graph";
@@ -14,14 +13,16 @@ export function friendshipsLogic({
     },
 
     async create(friendship: Friendship) {
-      if (await friendshipsRepo.exists(friendship))
+      if (await friendshipsRepo.exists(friendship)) {
         throw new ServiceError("The friendship already exists");
+      }
+
       return friendshipsRepo.create(friendship);
     },
 
     async shouldSuggest(friendship: Friendship) {
       if (await friendshipsRepo.exists(friendship)) {
-        return true; // or maybe true? No idea. Corner case.
+        return true; // or maybe false? No idea. Corner case.
       }
 
       // Check if both address are on the same parcel and connected.

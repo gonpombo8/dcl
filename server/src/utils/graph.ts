@@ -27,7 +27,7 @@ export function findPath(edges: Edge[], from: string, to: string) {
     if (!vertex) {
       return false;
     }
-    const neighbors = neighborsHash[vertex];
+    const neighbors = neighborsHash[vertex] || new Set();
 
     if (vertex === to) {
       return true;

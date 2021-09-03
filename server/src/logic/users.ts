@@ -1,8 +1,7 @@
 import { AppComponents } from "../app/interfaces";
 import { Position, User } from "../entities/types";
-import { ServiceError } from "../utils/express-utils";
 
-interface UpdateBody {
+export interface UpdateBody {
   moved: { id: string, position: Position } [];
   disconnected: string[];
 }
@@ -22,7 +21,7 @@ export function usersLogic({
           disconnected: false
         }));
 
-      const updateDisconnected = body.disconnected
+      const updateDisconnected = body.disconnected.length
         ? usersRepo.updateDisconnected(body.disconnected)
         : undefined;
       const updatePosition = usersMoved.length

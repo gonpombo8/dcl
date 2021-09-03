@@ -1,4 +1,7 @@
-import { RequestHandler, Request, Response, Express } from "express";
+import { RequestHandler, Request, Response } from "express";
+import { parseSchema, Type } from "mural-schema";
+import { TypeMap } from "mural-schema/types";
+
 import { AppComponents } from "../app/interfaces";
 
 const statusTexts: Record<number, string> = {
@@ -52,4 +55,19 @@ export function asyncHandler(
       }
     }
   };
+}
+
+const customTypes: TypeMap = {
+  ethAddress: (v) => typeof v === 'string' && !!(/0x[a-fA-F0-9]{40}/.test(v)),
+};
+
+export function validateSchema<T = unknown>(schema: Type, body: T) {
+  const validate = parseSchema(schema, { customTypes });
+  const errors = validate(body);
+
+  if (!errors.length) {
+    return;
+  }
+
+  throw new ServiceError('INVALID_PAYLOAD', 400, errors[0]?.message);
 }

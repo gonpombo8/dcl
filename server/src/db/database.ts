@@ -1,4 +1,5 @@
 import pgPromise, { IDatabase, IInitOptions, IMain } from "pg-promise";
+
 import { DEFAULT_DATABASE_CONFIG } from "../config/db";
 import { FriendshipsRepository, UsersRepository } from "../entities/types";
 import { createFriendshipsRepo } from "./DbFriendshipsRepo";

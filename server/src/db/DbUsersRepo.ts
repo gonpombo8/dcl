@@ -1,4 +1,4 @@
-import pgPromise, { IMain } from "pg-promise";
+import { IMain } from "pg-promise";
 
 import { Position, User, UsersRepository } from "../entities/types";
 import { Database } from "./database";

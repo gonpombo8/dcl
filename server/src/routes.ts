@@ -1,10 +1,11 @@
 import express, { Express } from "express";
+import morgan from "morgan";
 
 import { AppComponents } from "./app/interfaces";
 import { statusLogic } from "./logic/status";
 import { friendshipsLogic } from "./logic/friendships";
-import { usersLogic } from "./logic/users";
-import { asyncHandler } from "./utils/express-utils";
+import { usersLogic, UpdateBody } from "./logic/users";
+import { asyncHandler, validateSchema } from "./utils/express-utils";
 
 export async function configureRoutes(
   expressApp: Express,
@@ -15,6 +16,9 @@ export async function configureRoutes(
   const status = statusLogic();
 
   expressApp.use(express.json());
+  expressApp.use(
+    morgan('tiny')
+  );
 
   expressApp.get(
     "/status",
@@ -35,6 +39,13 @@ export async function configureRoutes(
     "/friendships/:address1/:address2",
     asyncHandler(
       async (req, res) => {
+        validateSchema(
+          {
+            address1: 'ethAddress',
+            address2: 'ethAddress',
+          },
+          req.params,
+        );
         res.send(
           await friendships.create({
             userAddress1: req.params.address1,
@@ -50,7 +61,13 @@ export async function configureRoutes(
     "/users-update",
     asyncHandler(
       async (req, res) => {
-        // TODO validate body.
+        validateSchema<UpdateBody>(
+          {
+            moved: [{ id: 'ethAddress', position: { x: 'number', y: 'number' } }],
+            disconnected: ['ethAddress'],
+          },
+          req.body,
+        );
         await users.updateMoves(req.body);
         res.send({});
       },
@@ -62,6 +79,13 @@ export async function configureRoutes(
     "/suggest-friendship/:address1/:address2",
     asyncHandler(
       async (req, res) => {
+        validateSchema(
+          {
+            address1: 'ethAddress',
+            address2: 'ethAddress',
+          },
+          req.params,
+        );
         res.send(
           await friendships.shouldSuggest({
             userAddress1: req.params.address1,
