@@ -1,4 +1,4 @@
-import { RequestHandler, Request, Response } from "express";
+import { RequestHandler, Request, Response, Express } from "express";
 import { AppComponents } from "../app/interfaces";
 
 const statusTexts: Record<number, string> = {

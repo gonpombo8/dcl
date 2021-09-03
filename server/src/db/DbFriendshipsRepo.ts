@@ -4,7 +4,14 @@ import { Database } from "./database";
 export function createFriendshipsRepo(db: Database): FriendshipsRepository {
   return {
     async getAll() {
-      return await db.manyOrNone("SELECT * FROM FRIENDSHIPS");
+      return db.manyOrNone("SELECT * FROM FRIENDSHIPS");
+    },
+
+    async getByAddress(addresses: string[]) {
+      return db.manyOrNone(
+        'SELECT * FROM FRIENDSHIPS WHERE "userAddress1" IN ($1:csv) AND "userAddress2" IN ($1:csv)',
+        [addresses],
+      );
     },
 
     async create(friendship: Friendship) {
