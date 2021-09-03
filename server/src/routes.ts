@@ -86,12 +86,11 @@ export async function configureRoutes(
           },
           req.params,
         );
-        res.send(
-          await friendships.shouldSuggest({
-            userAddress1: req.params.address1,
-            userAddress2: req.params.address2,
-          })
-        );
+        const shouldSuggest = await friendships.shouldSuggest({
+          userAddress1: req.params.address1,
+          userAddress2: req.params.address2,
+        })
+        res.send({ shouldSuggest });
       },
       components,
     ),

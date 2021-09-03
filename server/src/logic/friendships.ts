@@ -25,7 +25,7 @@ export function friendshipsLogic({
         return true; // or maybe false? No idea. Corner case.
       }
 
-      // Check if both address are on the same parcel and connected.
+      // Check if both address are in the same parcel and connected.
       const addresses = [friendship.userAddress1, friendship.userAddress2];
       const users = await usersRepo.getByAddress(addresses);
 
@@ -37,7 +37,7 @@ export function friendshipsLogic({
         throw new ServiceError("The users are not in the same parcel");
       }
 
-      // Get all the addresses that are connected at the same parcel.
+      // Get all the addresses that are connected in the same parcel.
       const addressesOnParcel = (await usersRepo.getByPosition({
         x: users[0].x, y: users[0].y,
       })).map(u => u.address);

@@ -11,7 +11,7 @@ export function usersLogic({
 }: Pick<AppComponents, "usersRepo">) {
   return {
     async updateMoves(body: UpdateBody) {
-      // Remove duplicate ones just in case and add disconnect.
+      // Remove duplicate ones just in case.
       const usersMoved: User[] = body.moved
         .filter(m => !body.disconnected.includes(m.id))
         .map(m => ({
