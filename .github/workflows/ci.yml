@@ -15,23 +15,6 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - name: install
-        run:  npm install
-      - name: build
-        run:  npm run build
-      - name: test
-        run:  npm run test
-  publish:
-    defaults:
-      run:
-        working-directory: ./server
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -40,8 +23,21 @@ jobs:
         with:
           node-version: 14.x
       - name: install
-        run:  npm install
+        run:  npm ci
       - name: build
         run:  npm run build
-
-
+      - name: test
+        run:  npm run test
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: install
+        run: npm install
+      # - name: Publish
+      #   uses: menduz/oddish-action@master
+      #   with:
+      #     registry-url: "https://registry.npmjs.org"
+      #     access: public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
