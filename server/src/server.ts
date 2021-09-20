@@ -1,4 +1,5 @@
 import express from "express";
+
 import { initComponents } from "./components";
 import { MigrationsRunner } from "./migrations/Runner";
 import { configureRoutes } from "./routes";

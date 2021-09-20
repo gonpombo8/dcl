@@ -1,4 +1,4 @@
-import { FriendshipsRepository } from "../entities/types";
+import { FriendshipsRepository, UsersRepository } from "../entities/types";
 
 export type Logger = {
   info(message?: any, ...optionalParams: any[]): void;
@@ -9,4 +9,5 @@ export type Logger = {
 export type AppComponents = {
   friendshipsRepo: FriendshipsRepository;
   logger: Logger;
+  usersRepo: UsersRepository;
 };
