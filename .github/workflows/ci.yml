@@ -26,7 +26,11 @@ jobs:
         run:  npm ci
       - name: build
         run:  npm run build
-      - name: test
+      - name: test on win
+        if: matrix.platform == 'windows-latest'
+        run:  npm run test:win
+      - name: test on macos
+        if: matrix.platform == 'macos-latest'
         run:  npm run test
   publish:
     runs-on: ubuntu-latest
